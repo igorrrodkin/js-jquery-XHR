@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" type="text/css" href="style.css">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"> 
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js" ></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+ 
+  <title>Task 2</title>
+</head>
+<body>
+  <h1>Gallery</h1>
+  
+  <p>An amount of images is:</p><p id= "amount"></p>
+  <p id="date"></p>
+  <div id="px"></div>  <!--Position fixed for unscrolling to the start of the page in the case of clicking on <a> tags -->
+  <div class="btn ">
+    <button class=" btn btn-secondary return_img">Return images</button>
+  </div>
+  <div class="container">
+    <div class="img">
+      <a href="#px" class="delete__img">x</a>
+      <a href="#" class="thumbnail">
+      <img src="./img/1.jpg" alt="image1" class="red_shadow circle__img" >
+      </a>
+    </div>
+    <div class="img">
+      <a href="#px" class="delete__img">x</a>
+      <a href="#" class="thumbnail">
+      <img src="./img/2.jpg" alt="image2"  class="circle__img">
+      </a>
+    </div>
+    <div class="img">
+      <a href="#px" class="delete__img">x</a>
+      <a href="#" class="thumbnail">
+      <img src="./img/3.jpg" alt="image3" class="circle__img" >
+      </a>
+    </div>
+    <div class="img">
+      <a href="#px" class="delete__img">x</a>
+      <a href="#" class="thumbnail">
+      <img src="./img/4.jpg" alt="image4"  class="circle__img">
+      </a>
+    </div>
+  </div>
+
+  <div class="container">
+    <div class="img ">
+      <a href="#px" class="delete__img local">x</a>
+      <a href="#" class="thumbnail">
+      <img src="./img/5.jpg" alt="image5" class="red_shadow circle__img" >
+      </a>
+    </div>
+    <div class="img">
+      <a href="#px" class="delete__img">x</a>
+      <a href="#" class="thumbnail">
+      <img src="./img/6.jpg" alt="image6"  class="circle__img">
+      </a>
+    </div>
+    <div class="img">
+      <a href="#px" class="delete__img">x</a>
+      <a href="#" class="thumbnail">
+      <img src="./img/7.jpg" alt="image7" class="circle__img" >
+      </a>
+    </div>
+    <div class="img">
+      <a href="#px" class="delete__img">x</a>
+      <a href="#" class="thumbnail">
+      <img src="./img/8.jpg" alt="image8" class="circle__img" >
+      </a>
+    </div>
+  </div>
+
+  <div class="container">
+    <div class="img">
+      <a href="#px" class="delete__img">x</a>
+      <a href="#" class="thumbnail">
+      <img src="./img/9.jpg" alt="image9" class="red_shadow circle__img" >
+      </a>
+    </div>
+    <div class="img">
+      <a href="#px" class="delete__img">x</a>
+      <a href="#" class="thumbnail">
+      <img src="./img/10.jpg" alt="image10"  class="circle__img">
+      </a>
+    </div>
+    <div class="img">
+      <a href="#px" class="delete__img">x</a>
+     <a href="#" class="thumbnail">
+      <img src="./img/11.jpg" alt="image11" class="circle__img" >
+      </a>
+    </div>
+    <div class="img">
+      <a href="#px" class="delete__img">x</a>
+     <a href="#" class="thumbnail">
+      <img src="./img/12.jpg" alt="image12" class="circle__img" >
+      </a>
+    </div>
+
+  </div>
+  
+
+
+  <!-- Modal Window -->
+  <div class="modal fade" id="image-modal" tabindex="-1" role="dialog">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>
+                <div class="modal-title"></div>
+            </div>
+            <div class="modal-body">
+                <img class="img-responsive center-block" src="" alt="">
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+  </div>
+
+  <!--Date and counter -->
+  <script type="text/javascript">
+    
+
+window['count'] = document.querySelectorAll("img").length;
+    document.getElementById("amount").innerHTML= `${count-1}`; 
+    function formatDate(date) {
+
+      let dd = date.getDate();
+      if (dd < 10) dd = '0' + dd;
+
+      let mm = date.getMonth() + 1;
+      if (mm < 10) mm = '0' + mm;
+
+      let yyyy = date.getFullYear() ;
+
+      let hh = date.getHours();
+      if (hh <10) hh = '0'+hh;
+      
+      let minutes = date.getMinutes();
+      if (minutes <10) minutes = '0'+minutes;
+
+      return dd + '.' + mm + '.' + yyyy + ' ' + hh + ':' + minutes;
+    }
+
+    let d = new Date(); 
+    document.getElementById("date").innerHTML = `Date : ${formatDate(d)}`;
+  </script>
+
+  <!--Gallery -->
+  <script type="text/javascript" >
+     $(function() {
+        
+        $('a.thumbnail').click(function(e) {
+            
+            e.preventDefault();
+            
+            $('#image-modal .modal-body img').attr('src', $(this).find('img').attr('src'));
+           
+            $("#image-modal").modal('show');
+        });
+        
+    });
+  </script>
+
+  <!--Removing images -->
+  <script type="text/javascript">
+    $(function click_remove() {
+        $('a.delete__img').click(function(event) {
+          
+          window.localStorage.setItem('removed' , $(this).closest('div').addClass('displ__none'));
+        });
+    });
+
+
+$(function counter() {
+        $('a.delete__img').click(function(event) {
+          count -=1;
+          $('#amount').html(count-1);
+        });
+    });
+    
+
+$(function () {
+    $('.return_img').click(function(event) {      
+        $('div').removeClass(['displ__none']);
+        count = document.querySelectorAll("img").length;
+        $('#amount').html(count-1);
+    });
+});
+  </script>
+</body>
+</html>
